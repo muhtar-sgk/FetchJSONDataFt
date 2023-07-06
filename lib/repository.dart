@@ -6,17 +6,14 @@ import 'package:fetch_json_data/starwars.dart';
 class Repository {
   final _baseUrl = "https://swapi.dev/api/people";
 
-  Future fetchPeople() async {
-    try {
-      final response = await http.get(Uri.parse(_baseUrl));
-
-      if (response.statusCode == 200) {
-        Iterable iterable = jsonDecode(response.body);
-        List<Starwars> starwars = iterable.map((json) => Starwars.fromJson(json)).toList();
-        return starwars;
-      }
-    } catch (e) {
-      print(e.toString());
+  Future<List<Starwars>> fetchPeople() async {
+    final response = await http.get(Uri.parse(_baseUrl));
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final results = jsonResponse['results'] as List<dynamic>;
+      return results.map((json) => Starwars.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to fetch people');
     }
   }
 }

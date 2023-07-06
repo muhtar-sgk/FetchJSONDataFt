@@ -1,19 +1,26 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class Starwars {
   final String name;
-  final String hairColor;
-  final String skinColor;
+  final String height;
+  final String mass;
+  // tambahkan properti lainnya sesuai kebutuhan
 
-  const Starwars({
+  Starwars({
     required this.name,
-    required this.hairColor,
-    required this.skinColor,
+    required this.height,
+    required this.mass,
+    // tambahkan properti lainnya sesuai kebutuhan
   });
 
   factory Starwars.fromJson(Map<String, dynamic> json) {
     return Starwars(
       name: json['name'],
-      hairColor: json['hair_color'],
-      skinColor: json['skin_color'],
+      height: json['height'],
+      mass: json['mass'],
+      // tambahkan properti lainnya sesuai kebutuhan
     );
   }
 }
+
